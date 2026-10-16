@@ -27,7 +27,7 @@ window.addEventListener('pointermove', event => {
   }
 }, { passive: true });
 
-// ANURAG KALADHAR — ORIGINAL ARTWORK GALLERY
+// ANURAG KALADHAR — ARTWORK GALLERY
 const artworkFiles = [
   "IMG_20260902_172559.jpg",
   "InShot_20260906_221109970.jpg",
@@ -52,7 +52,6 @@ const artworkFiles = [
 const gallery = document.querySelector(".gallery");
 
 if (gallery) {
-  // Shuffle the artworks randomly.
   const shuffled = [...artworkFiles];
 
   for (let i = shuffled.length - 1; i > 0; i--) {
@@ -60,25 +59,24 @@ if (gallery) {
     [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
 
-  gallery.innerHTML = shuffled.map((file, index) => {
-    const number = String(index + 1).padStart(2, "0");
+  gallery.innerHTML = shuffled.map((file, i) => {
+    const number = String(i + 1).padStart(2, "0");
 
     return `
-      <article class="work-card ${index === 0 ? "work-card-large" : ""} reveal">
+      <article class="work-card">
         <div class="work-image">
           <img
             src="${encodeURI(file)}"
-            alt="Artwork ${number} by Anurag Kaladhar"
+            alt="Artwork ${number} by Anurag"
             loading="lazy"
-            style="width:100%;height:100%;object-fit:cover;display:block;"
+            style="width:100%;height:100%;object-fit:cover;display:block"
           >
           <span class="image-index">${number} / ORIGINAL ART</span>
         </div>
-
         <div class="card-meta">
           <div>
-            <h3>Original Artwork ${number}</h3>
-            <p>ARTWORK / ANURAG KALADHAR</p>
+            <h3>Artwork ${number}</h3>
+            <p>ORIGINAL ART / ANURAG KALADHAR</p>
           </div>
           <span class="card-number">${number}</span>
         </div>
@@ -86,18 +84,10 @@ if (gallery) {
     `;
   }).join("");
 
-  // Update the gallery note.
   const note = document.querySelector(".gallery-note");
 
   if (note) {
     note.innerHTML =
       "<span>✳</span> 18 ORIGINAL ARTWORKS — BY ANURAG KALADHAR.";
   }
-
-  // Enable the existing reveal animation for the new cards.
-  document.querySelectorAll(".work-card.reveal").forEach(card => {
-    if (typeof observer !== "undefined") {
-      observer.observe(card);
-    }
-  });
 }
